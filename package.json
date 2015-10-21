@@ -1,0 +1,13 @@
+{
+  "name": "javascript-planets",
+  "version": "0.1.0",
+  "description": "A generator for planets served by Node.js",
+  "main": "server.js",
+  "author": "Anthony Castelli",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.10"
+  }
+}

@@ -1,75 +1,90 @@
-var seed 					= 40,
-		map_width 		= 60,
-		map_height 		= 40,
-		star_density 	= 0.09;
+// Galaxy constants
+var SEED 					= 40,
+		MAP_WIDTH 		= 60,
+		MAP_HEIGHT 		= 40,
+		STAR_DENSITY 	= 0.09;
 
+// System ranges
 var minPlanets 		= 1,
 		maxPlanets 		= 3;
 
 init();
 
 function init() {
-	var star_field = create_stars(seed, map_width, map_height, star_density);
-	visual_output(star_field);
-	planet_map = create_planets(star_field);
+	// Generate a field of seed values dispersed based on the density
+	//  and size of the region of space
+	var starField = generateSeeds(SEED, MAP_WIDTH, MAP_HEIGHT, STAR_DENSITY);
+	// Display field on the page
+	displayGalaxy(starField);
+	// Generate planets for systems based on seed input
+	planetMap = createPlanets(starField);
 }
 
-function create_stars(seed, width, height, density) {
-	var output_values = [];
+function generateSeeds(seed, width, height, density) {
+	var seedMap = [];
 
+	// Generate an array to hold the stars
 	for (var y = 0; y < height; y++) {
-		output_values[y] = new Array(width);
+		seedMap[y] = new Array(width);
 	}
 
+	// Loop to fill the new empty array with stars
 	for (var y = 0; y < height; y++) {
 		for (var x = 0; x < width; x++) {
+			// Compare a random number to the density desired
 			if (Math.random() < density) {
-				output_values[y][x] = Math.random();
-				console.log("Star generated at ", x, " ", y, " with seed ", output_values[y][x]);
-			}
-			else
-			{
-				output_values[y][x] = 0;
-			}
-		}
-	}
-
-	return output_values
-}
-
-function create_planets(star_field) {
-	var planet_map = [];
-
-	for (var y = 0; y < star_field.length; y++) {
-		planet_map[y] = new Array(star_field[0].length);
-	}
-
-	for (var y = 0; y < planet_map.length; y++) {
-		for (var x = 0; x < planet_map[0].length; x++) {
-			if (star_field[y][x] > 0) {
-				planet_map[y][x] = system_generator(star_field[y][x], minPlanets, maxPlanets, x, y);
+				// If below density threshold add a seed value into the array
+				seedMap[y][x] = Math.random();
+				console.log("Star generated at ", x, " ", y, " with seed ", seedMap[y][x]);
+			} else {
+				// Otherwise the system has no value
+				seedMap[y][x] = 0;
 			}
 		}
 	}
 
-	return planet_map
+	return seedMap
 }
 
-function system_generator(seed, min, max, x, y) {
-	var planet_seeds = [];
+function createPlanets(starField) {
+	var planetMap = [];
+
+	// Build an array the same shape as the seed field
+	for (var y = 0; y < starField.length; y++) {
+		planetMap[y] = new Array(starField[0].length);
+	}
+
+	// Loop over this new array
+	for (var y = 0; y < planetMap.length; y++) {
+		for (var x = 0; x < planetMap[0].length; x++) {
+			// If the seed for this system is a value one for planets
+			if (starField[y][x] > 0) {
+				// Generate a system at these coordinates and put it in the planet map
+				planetMap[y][x] = systemGenerator(starField[y][x], minPlanets, maxPlanets, x, y);
+			}
+		}
+	}
+
+	return planetMap
+}
+
+function systemGenerator(seed, min, max, x, y) {
+	var planetSeeds = [];
+	// Give the system a number of planets
 	var numPlanets = Math.floor((Math.random()*max)+min);
 
 	console.log("Number of planets at location", x, ",", y, " is: ", numPlanets);
 
+	// Give each planet a seed value
 	for (var i = 0; i < numPlanets; i++) {
-		planet_seeds[i] = Math.random();
-		console.log("Planet ", i, " has a seed of ", planet_seeds[i]);
+		planetSeeds[i] = Math.random();
+		console.log("Planet ", i, " has a seed of ", planetSeeds[i]);
 	}
 
-	return planet_seeds
+	return planetSeeds
 }
 
-function visual_output(array_in) {
+function displayGalaxy(array_in) {
 	for (var y = 0; y < array_in.length; y++) {
 		for (var x = 0; x < array_in[0].length; x++) {
 			if (array_in[y][x] > 0) {
@@ -80,6 +95,5 @@ function visual_output(array_in) {
 		}
 		document.write("<br>");
 	}
-
 	//document.write("<br>");
 }

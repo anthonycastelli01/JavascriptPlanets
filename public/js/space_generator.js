@@ -1,7 +1,7 @@
 // Galaxy constants
 var SEED 					= 40,
-		MAP_WIDTH 		= 60,
-		MAP_HEIGHT 		= 40,
+		MAP_WIDTH 		= 50,
+		MAP_HEIGHT 		= 30,
 		STAR_DENSITY 	= 0.09;
 
 // System ranges
@@ -85,15 +85,16 @@ function systemGenerator(seed, min, max, x, y) {
 }
 
 function displayGalaxy(array_in) {
+	var starMap = $("pre#starMap")[0];
+
 	for (var y = 0; y < array_in.length; y++) {
+		var row = $('<div class="row">').appendTo(starMap);
 		for (var x = 0; x < array_in[0].length; x++) {
 			if (array_in[y][x] > 0) {
-				document.write('<span class="star">O </span>');
+				row.append($('<span class="star">O </span>'));
 			} else {
-				document.write('<span class="void">- </span>');
+				row.append($('<span class="void">- </span>'));
 			}
 		}
-		document.write("<br>");
 	}
-	//document.write("<br>");
 }

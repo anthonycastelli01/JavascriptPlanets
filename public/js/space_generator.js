@@ -14,7 +14,7 @@ function init() {
 	// Generate a field of seed values dispersed based on the density
 	//  and size of the region of space
 	// var starField = generateSeeds(SEED, MAP_WIDTH, MAP_HEIGHT, STAR_DENSITY);
-	var starField = generateLinearlyWeightedSeeds(SEED, MAP_WIDTH, MAP_HEIGHT, STAR_DENSITY);
+	var starField = generateCircularlyWeightedSeeds(SEED, MAP_WIDTH, MAP_HEIGHT, STAR_DENSITY);
 	// Display field on the page
 	displayGalaxy(starField);
 	// Generate planets for systems based on seed input
@@ -61,9 +61,40 @@ function generateLinearlyWeightedSeeds(seed, width, height, density) {
 		for (var x = 0; x < width; x++) {
 			// Compute the probability of a star existing here
 			var probability = Math.exp(-(Math.pow(x - (MAP_WIDTH/2),2)/(MAP_WIDTH)));
-			console.log(probability);
+			// console.log(probability);
 
 			if (Math.random() < probability) {
+				// If below density threshold add a seed value into the array
+				seedMap[y][x] = Math.random();
+				// console.log("Star generated at ", x, " ", y, " with seed ", seedMap[y][x]);
+			} else {
+				// Otherwise the system has no value
+				seedMap[y][x] = 0;
+			}
+		}
+	}
+
+	return seedMap
+}
+
+function generateCircularlyWeightedSeeds(seed, width, height, density) {
+	var seedMap = [];
+	var weightedX = MAP_WIDTH / 2; // For a vertical weight
+
+	// Generate an array to hold the stars
+	for (var y = 0; y < height; y++) {
+		seedMap[y] = new Array(width);
+	}
+
+	// Loop to fill the new empty array with stars
+	for (var y = 0; y < height; y++) {
+		for (var x = 0; x < width; x++) {
+			// Compute the probability of a star existing here
+			var probabilityX = Math.exp(-(Math.pow(x - (MAP_WIDTH/2),2)/(MAP_WIDTH + (MAP_WIDTH/2))));
+			var probabilityY = Math.exp(-(Math.pow(y - (MAP_HEIGHT/2),2)/(MAP_HEIGHT + (MAP_HEIGHT/2))));
+			// console.log(probability);
+
+			if (Math.random() < probabilityX && Math.random() < probabilityY) {
 				// If below density threshold add a seed value into the array
 				seedMap[y][x] = Math.random();
 				// console.log("Star generated at ", x, " ", y, " with seed ", seedMap[y][x]);

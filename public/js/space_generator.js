@@ -90,8 +90,8 @@ function generateCircularlyWeightedSeeds(seed, width, height, density) {
 	for (var y = 0; y < height; y++) {
 		for (var x = 0; x < width; x++) {
 			// Compute the probability of a star existing here
-			var probabilityX = Math.exp(-(Math.pow(x - (MAP_WIDTH/2),2)/(MAP_WIDTH + (MAP_WIDTH/2))));
-			var probabilityY = Math.exp(-(Math.pow(y - (MAP_HEIGHT/2),2)/(MAP_HEIGHT + (MAP_HEIGHT/2))));
+			var probabilityX = Math.exp(-(Math.pow(x - (MAP_WIDTH/2),2)/(3 * MAP_WIDTH)));
+			var probabilityY = Math.exp(-(Math.pow(y - (MAP_HEIGHT/2),2)/(3 * MAP_HEIGHT)));
 			// console.log(probability);
 
 			if (Math.random() < probabilityX && Math.random() < probabilityY) {

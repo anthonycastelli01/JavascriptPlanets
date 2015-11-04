@@ -1,6 +1,13 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var path = require('path');
+
+// configure app to use lib folder 
+app.use('/lib', express.static(path.join(__dirname, './lib')));
+
+// configure app to use THREEx planets
+app.use('/bower_components', express.static(path.join(__dirname, './bower_components')));
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost');

@@ -27,7 +27,9 @@ var GHOST_DISTANCE_SCALE = 80;
     far: 200000,
 
     //==========================================================================
-    // *this* is now the `graphics` variable
+    // `this` is now the `graphics` variable
+    // Underscore prefix indicates method is for private use within the "class"
+    // i.e. only `graphics` should use it 
 
     _createCamera: function() {
       var camera = new THREE.PerspectiveCamera(this.view_angle,
@@ -58,13 +60,14 @@ var GHOST_DISTANCE_SCALE = 80;
       this.camera = this._createCamera();
       this.renderer = this._createRenderer();
       this.ambientLight = new THREE.AmbientLight(0xCCCCCC);
+      // Created a starry background sphere 
+      this.starSphere	= THREEx.Planets.createStarfield();
 
       this.camera.lookAt(this.scene.position);
       this.scene.add(this.camera);
       this.scene.add(this.ambientLight);
-
-      var starSphere	= THREEx.Planets.createStarfield();
-	  this.scene.add(starSphere);
+      // Added the starry background sphere 
+	  this.scene.add(this.starSphere);
     },
 
     //==========================================================================
@@ -79,6 +82,16 @@ var GHOST_DISTANCE_SCALE = 80;
     },
 
     //==========================================================================
+    // `r` is radius where 1 Three.js unit = 1,000,000,000 meters, 
+    // or 1 gigameter
+    //
+    // `x`, `y`, and `z` are coordinates in space where 0,0,0 is the absolute 
+    // center
+    //
+    // textureUrl is self explanatory
+    //
+    // astro is a hash containing velocity and mass
+    
 
     _createSphere: function(r, x, y, z, textureUrl, astro) {
       if (astro === undefined) {
@@ -239,7 +252,7 @@ var GHOST_DISTANCE_SCALE = 80;
   var animation = exports.animation = {
 
   	//==========================================================================
-  	// *this* is now `animation`
+  	// `this` is now `animation`
   	// ... and/or `exports.animation`? does it matter?
 
     init: function() {

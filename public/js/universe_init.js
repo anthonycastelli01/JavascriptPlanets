@@ -1,23 +1,27 @@
 //==============================================================================
 
 animation.init();
+
 // Align top-left
 animation.addControls('speedSlider');
 
+// Running the simulation of our solar system
 simulateHome();
 
 //==============================================================================
 
-function extractNumber(formElementId, errorMsg) {
-  var value = document.forms["form"][formElementId].value;
-  if (!value) {
-    alert("Insert a valid number for " + errorMsg);
-  }
-  return +value;
-}
+// function extractNumber(formElementId, errorMsg) {
+//   var value = document.forms["form"][formElementId].value;
+//   if (!value) {
+//     alert("Insert a valid number for " + errorMsg);
+//   }
+//   return +value;
+// }
+
 //==============================================================================
 
 var planetId = 1;
+
 // document.getElementById('new-planet').onclick = function(e) {
 //   e.preventDefault();
 
@@ -146,6 +150,7 @@ document.getElementById("pauseButton").onclick = function() {
 // };
 
 //==============================================================================
+// `+` before `this.value` converts `this.value` to a number if possible 
 
 document.getElementById("focus").onchange = function(e) {
   if (+this.value === -1) {

@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 
-// configure app to use lib folder 
+// configure app to use lib folder
 app.use('/lib', express.static(path.join(__dirname, './lib')));
 
 // configure app to use THREEx planets
@@ -11,7 +11,8 @@ app.use('/bower_components', express.static(path.join(__dirname, './bower_compon
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost');
-var System = require('./app/models/system')
+var System = require('./app/models/system');
+var Planet = require('./app/models/planet');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -26,6 +27,7 @@ var planetsRouter = require("./app/routes/PlanetRoutes");
 
 // Register routes
 app.use("/", appRouter);
+app.use("/", planetsRouter);
 
 // Serve static pages in public folder
 app.use(express.static(__dirname + '/public'));

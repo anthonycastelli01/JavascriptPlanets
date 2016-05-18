@@ -150,7 +150,7 @@ document.getElementById("pauseButton").onclick = function() {
 // };
 
 //==============================================================================
-// `+` before `this.value` converts `this.value` to a number if possible 
+// `+` before `this.value` converts `this.value` to a number if possible
 
 document.getElementById("focus").onchange = function(e) {
   if (+this.value === -1) {

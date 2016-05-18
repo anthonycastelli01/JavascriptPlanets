@@ -9,6 +9,11 @@ router.route('/')
     response.sendFile(path.join(__dirname, "../../public/index.html"));
   });
 
+router.route('/systemdemo')
+  .get(function(request, response) {
+    response.sendFile(path.join(__dirname, "../../public/demoindex.html"));
+  });
+
 router.route('/regenerate')
   .get(function(request, response) {
     var fieldGenerator =  function(seed) {
@@ -80,14 +85,14 @@ router.route('/regenerate')
         var planet = new Planet();
 
         planet.name = "Test Name";
-        planet.planetRadius = 100;
-        planet.x = 150;
+        planet.planetRadius = 0.0024397;
+        planet.x = 50.32;
         planet.y = 0;
         planet.z = 0;
         planet.textureURL = "saturn.jpg";
         planet.astro = {
-          velocity: 100,
-          mass: 100
+          velocity: 4.74e-5,
+          mass: 3.30104e23
         }
 
         this.system.planets.push(planet);

@@ -9,3 +9,8 @@ body {
 .void {
   color: black;
 }
+
+a {
+  color: yellow;
+  text-decoration: none;
+}

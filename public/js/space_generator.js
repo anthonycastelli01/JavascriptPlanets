@@ -153,7 +153,7 @@ function displayGalaxy(array_in) {
 		var row = $('<div class="row">').appendTo(starMap);
 		for (var x = 0; x < array_in[0].length; x++) {
 			if (array_in[y][x] > 0) {
-				row.append($('<span class="star">O </span>'));
+				row.append($('<span class="star"><a href="http://localhost:8080/systemdemo">O</a> </span>'));
 			} else {
 				row.append($('<span class="void">- </span>'));
 			}
